@@ -1,0 +1,3310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Watch ADM - Premium Timepieces</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* =================================
+           BASE STYLES (Mobile First)
+           ================================= */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary-gold: #D4AF37;
+            --dark-bg: #F5E6D3;
+            --text-light: #2C2C2C;
+            --accent: #B8860B;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --logo-bg: #E6D7C3;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--dark-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            transition: var(--transition);
+            font-size: 16px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* =================================
+           MOBILE TYPOGRAPHY
+           ================================= */
+        h1 {
+            font-size: 2rem;
+            font-weight: 100;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            font-weight: 100;
+            letter-spacing: 3px;
+            margin-bottom: 1.5rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        h3 {
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        p {
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+        }
+
+        /* =================================
+           MOBILE NAVIGATION
+           ================================= */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(245, 230, 211, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            transition: var(--transition);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            will-change: transform;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0.75rem;
+        }
+
+        .nav-logo-img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary-gold);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .nav-logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-logo-title {
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            font-family: 'Times New Roman', serif;
+            line-height: 1.2;
+        }
+
+        .nav-logo-subtitle {
+            font-size: 0.625rem;
+            letter-spacing: 0.5px;
+            color: var(--primary-gold);
+            opacity: 0.8;
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 80%;
+            max-width: 300px;
+            height: 100vh;
+            background: var(--dark-bg);
+            flex-direction: column;
+            padding: 5rem 2rem 2rem;
+            box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+            transition: right 0.3s ease;
+            list-style: none;
+            z-index: 1001;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-links.active {
+            right: 0;
+            display: flex;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            position: relative;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            display: block;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary-gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-icons i {
+            color: var(--primary-gold);
+            font-size: 1.25rem;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.5rem;
+        }
+
+        .nav-icons i:hover {
+            transform: scale(1.2);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .mobile-menu-toggle {
+            display: flex;
+            flex-direction: column;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+            z-index: 1002;
+        }
+
+        .mobile-menu-toggle span {
+            width: 25px;
+            height: 3px;
+            background: var(--primary-gold);
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* =================================
+           MOBILE BUTTONS
+           ================================= */
+        .cta-button {
+            display: inline-block;
+            padding: 0.75rem 1.25rem;
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            min-height: 44px;
+            min-width: 44px;
+            text-align: center;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .cta-button.primary {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            width: 100%;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--primary-gold);
+            transition: left 0.5s;
+            z-index: -1;
+        }
+
+        .cta-button:hover::before {
+            left: 0;
+        }
+
+        .cta-button:hover {
+            color: var(--dark-bg);
+        }
+
+        .filter-btn {
+            padding: 0.625rem 1rem;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.625rem;
+            min-height: 36px;
+            margin-bottom: 0.5rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            border-color: var(--primary-gold);
+        }
+
+        .add-to-cart {
+            flex: 1;
+            padding: 0.5rem;
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.625rem;
+            min-height: 32px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .add-to-cart:hover {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+        }
+
+        .quick-view {
+            padding: 0.5rem;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--primary-gold);
+            cursor: pointer;
+            transition: var(--transition);
+            min-height: 32px;
+            min-width: 32px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .quick-view:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* =================================
+           HERO SECTION
+           ================================= */
+        .hero {
+            height: 70vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            margin-top: 70px;
+            background: linear-gradient(135deg, rgba(245, 230, 211, 0.8), rgba(245, 230, 211, 0.3));
+        }
+
+        .hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(245, 230, 211, 0.7), rgba(245, 230, 211, 0.3));
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 0 1rem;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            letter-spacing: 3px;
+            margin-bottom: 0.75rem;
+            background: linear-gradient(135deg, var(--primary-gold), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 0.875rem;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        /* =================================
+           MOBILE CARDS
+           ================================= */
+        .collections, .products {
+            padding: 2rem 0.75rem;
+            max-width: 100%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 100;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            font-family: 'Times New Roman', serif;
+            color: var(--primary-gold);
+        }
+
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* =================================
+           MOBILE PRODUCTS GRID
+           ================================= */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            padding: 0.75rem;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+            border-radius: 8px;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .product-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.3s;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .product-card:hover .product-video {
+            opacity: 1;
+        }
+
+        .product-image img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transition: transform 0.5s;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            padding: 2px 6px;
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 3px;
+        }
+
+        .product-name {
+            font-size: 0.75rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+            font-family: 'Times New Roman', serif;
+            line-height: 1.2;
+            height: 2.4rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-description {
+            font-size: 0.625rem;
+            opacity: 0.7;
+            margin-bottom: 0.75rem;
+            line-height: 1.3;
+            height: 2.5rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .product-price {
+            font-size: 0.875rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .product-colors {
+            display: flex;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .color-option {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .color-option:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .color-option.selected {
+            border: 2px solid var(--primary-gold);
+            transform: scale(1.2);
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.25rem;
+            flex-direction: column;
+        }
+
+        /* =================================
+           MOBILE FEATURES SECTION
+           ================================= */
+        .features {
+            padding: 2rem 0.75rem;
+            background: linear-gradient(180deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .feature-item {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+        }
+
+        .feature-icon {
+            font-size: 1.5rem;
+            color: var(--primary-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-title {
+            font-size: 0.875rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .feature-description {
+            font-size: 0.75rem;
+            line-height: 1.4;
+            opacity: 0.8;
+        }
+
+        /* =================================
+           MOBILE TESTIMONIALS
+           ================================= */
+        .testimonials {
+            padding: 2rem 0.75rem;
+            max-width: 100%;
+        }
+
+        .testimonial-slider {
+            position: relative;
+            overflow: hidden;
+            padding: 1.5rem 0;
+        }
+
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .testimonial-card {
+            min-width: 100%;
+            padding: 1.5rem 0.75rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+        }
+
+        .testimonial-text {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            font-style: italic;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+        }
+
+        .testimonial-author {
+            font-size: 0.875rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            color: var(--primary-gold);
+        }
+
+        .testimonial-role {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-top: 0.25rem;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.3);
+            cursor: pointer;
+            transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .dot.active {
+            background: var(--primary-gold);
+        }
+
+        /* =================================
+           MOBILE NEWSLETTER
+           ================================= */
+        .newsletter {
+            padding: 2rem 0.75rem;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 1.5rem;
+            font-weight: 100;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .newsletter p {
+            font-size: 0.75rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 100%;
+            gap: 0.75rem;
+        }
+
+        .newsletter-input {
+            flex: 1;
+            padding: 0.75rem;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--text-light);
+            font-size: 0.875rem;
+            min-height: 44px;
+            -webkit-appearance: none;
+            border-radius: 0;
+        }
+
+        .newsletter-button {
+            padding: 0.75rem 1.25rem;
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            min-height: 44px;
+            -webkit-appearance: none;
+            border-radius: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .newsletter-button:hover {
+            transform: scale(1.02);
+        }
+
+        /* =================================
+           MOBILE FOOTER
+           ================================= */
+        footer {
+            padding: 2rem 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.1);
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .footer-content {
+            max-width: 100%;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h3 {
+            font-size: 0.875rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+            color: var(--primary-gold);
+            font-family: 'Times New Roman', serif;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-section a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.75rem;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .footer-section a:hover {
+            color: var(--primary-gold);
+            opacity: 1;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .social-icons i {
+            font-size: 1rem;
+            color: var(--primary-gold);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 0.5rem;
+        }
+
+        .social-icons i:hover {
+            transform: scale(1.2);
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .payment-icon {
+            width: 32px;
+            height: 20px;
+            background: rgba(212, 175, 55, 0.2);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            color: var(--primary-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            font-size: 0.625rem;
+            opacity: 0.6;
+        }
+
+        /* =================================
+           MOBILE CART SIDEBAR
+           ================================= */
+        .cart-sidebar {
+            position: fixed;
+            right: -100%;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--dark-bg);
+            box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            transition: right 0.3s;
+            z-index: 2000;
+            padding: 0;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .cart-title {
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+            font-family: 'Times New Roman', serif;
+            color: var(--primary-gold);
+        }
+
+        .close-cart {
+            font-size: 1.25rem;
+            cursor: pointer;
+            color: var(--text-light);
+            transition: var(--transition);
+            padding: 0.5rem;
+        }
+
+        .close-cart:hover {
+            color: var(--primary-gold);
+        }
+
+        .cart-content {
+            overflow-y: auto;
+            max-height: calc(100vh - 150px);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Step 1: Cart Items */
+        .cart-step {
+            display: block;
+        }
+
+        .cart-step.hidden {
+            display: none;
+        }
+
+        .cart-section {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .section-title {
+            font-size: 0.875rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.75rem;
+            color: var(--primary-gold);
+            font-family: 'Times New Roman', serif;
+            text-transform: uppercase;
+        }
+
+        .cart-items {
+            margin-bottom: 0.75rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .cart-item img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-size: 0.75rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-price {
+            color: var(--primary-gold);
+            font-size: 0.875rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-color {
+            font-size: 0.625rem;
+            opacity: 0.7;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .cart-color-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .quantity-btn {
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: var(--primary-gold);
+            cursor: pointer;
+            transition: var(--transition);
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+        }
+
+        .cart-total {
+            padding: 1rem;
+            background: rgba(212, 175, 55, 0.05);
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.25rem;
+            font-size: 0.75rem;
+        }
+
+        .total-row.final {
+            font-size: 1rem;
+            color: var(--primary-gold);
+            font-weight: bold;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            border-radius: 4px;
+            margin-top: 0.75rem;
+            min-height: 44px;
+            -webkit-appearance: none;
+            border-radius: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .checkout-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .checkout-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Step 2: Customer Information */
+        .customer-info {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 0.75rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-label {
+            font-size: 0.625rem;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            margin-bottom: 0.25rem;
+            opacity: 0.8;
+        }
+
+        .form-input {
+            padding: 0.625rem 0.75rem;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-light);
+            font-size: 0.875rem;
+            transition: var(--transition);
+            border-radius: 4px;
+            min-height: 40px;
+            -webkit-appearance: none;
+            border-radius: 0;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+        }
+
+        .form-select {
+            padding: 0.625rem 0.75rem;
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            color: var(--text-light);
+            font-size: 0.875rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: var(--transition);
+            min-height: 40px;
+            -webkit-appearance: none;
+            border-radius: 0;
+        }
+
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary-gold);
+        }
+
+        .back-to-cart-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background: transparent;
+            color: var(--primary-gold);
+            border: 1px solid var(--primary-gold);
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+            min-height: 44px;
+            -webkit-appearance: none;
+            border-radius: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .back-to-cart-btn:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        .checkout-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            padding: 1rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        /* =================================
+           ORDER CONFIRMATION MODAL
+           ================================= */
+        .order-confirmation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 3000;
+        }
+
+        .order-confirmation.active {
+            display: flex;
+        }
+
+        .confirmation-modal {
+            background: var(--dark-bg);
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 90%;
+            width: 400px;
+            text-align: center;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .confirmation-icon {
+            font-size: 3rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-title {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            font-family: 'Times New Roman', serif;
+            color: var(--primary-gold);
+        }
+
+        .confirmation-message {
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .confirmation-order-number {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-gold);
+        }
+
+        .confirmation-btn {
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.75rem;
+            transition: var(--transition);
+            border-radius: 4px;
+            min-height: 44px;
+            -webkit-appearance: none;
+            border-radius: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .confirmation-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        /* =================================
+           MOBILE MUSIC PLAYER
+           ================================= */
+        .music-player {
+            position: fixed;
+            bottom: 0.75rem;
+            left: 0.75rem;
+            right: 0.75rem;
+            background: rgba(212, 175, 55, 0.2);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            padding: 0.5rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            z-index: 999;
+            transition: var(--transition);
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .music-player:hover {
+            background: rgba(212, 175, 55, 0.3);
+            transform: scale(1.02);
+        }
+
+        .music-info {
+            font-size: 0.625rem;
+            letter-spacing: 0.5px;
+            opacity: 0.8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .music-indicator {
+            width: 6px;
+            height: 6px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; }
+            50% { opacity: 1; }
+            100% { opacity: 0.3; }
+        }
+
+        /* =================================
+           MOBILE VIDEO INTRO
+           ================================= */
+        .video-intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .video-intro video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        .intro-logo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            font-weight: 100;
+            letter-spacing: 3px;
+            color: var(--primary-gold);
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInLogo 2s forwards;
+            animation-delay: 1s;
+            pointer-events: none;
+        }
+
+        @keyframes fadeInLogo {
+            0% { opacity: 0; transform: translate(-50%, -40%); }
+            100% { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .intro-tagline {
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.875rem;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            opacity: 0;
+            animation: fadeInTagline 2s forwards;
+            animation-delay: 2s;
+            pointer-events: none;
+        }
+
+        @keyframes fadeInTagline {
+            0% { opacity: 0; transform: translate(-50%, -45%); }
+            100% { opacity: 0.8; transform: translate(-50%, -50%); }
+        }
+
+        .fade-out {
+            animation: fadeOut 1s forwards;
+        }
+
+        @keyframes fadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
+        }
+
+        .main-content {
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .main-content.visible {
+            opacity: 1;
+        }
+
+        /* =================================
+           PRODUCT DETAIL PAGE
+           ================================= */
+        .product-detail {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            z-index: 10000;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .product-detail.active {
+            display: block;
+        }
+
+        .product-detail-header {
+            position: sticky;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(245, 230, 211, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+        }
+
+        .back-button {
+            background: none;
+            border: none;
+            color: var(--primary-gold);
+            font-size: 1.25rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .product-detail-container {
+            padding: 1rem;
+            padding-bottom: 6rem;
+        }
+
+        .product-detail-images {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-detail-main-image {
+            width: 100%;
+            height: 60vh;
+            object-fit: contain;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            margin-bottom: 1rem;
+        }
+
+        .product-detail-thumbnails {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .thumbnail.active {
+            border-color: var(--primary-gold);
+            transform: scale(1.05);
+        }
+
+        .product-detail-info {
+            margin-bottom: 1.5rem;
+        }
+
+        .product-detail-title {
+            font-size: 1.5rem;
+            font-weight: 100;
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
+            font-family: 'Times New Roman', serif;
+            color: var(--primary-gold);
+        }
+
+        .product-detail-price {
+            font-size: 1.25rem;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .product-detail-description {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-detail-specs {
+            margin-bottom: 1.5rem;
+        }
+
+        .spec-title {
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            margin-bottom: 0.75rem;
+            font-family: 'Times New Roman', serif;
+            color: var(--primary-gold);
+        }
+
+        .spec-list {
+            list-style: none;
+        }
+
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            font-size: 0.875rem;
+        }
+
+        .spec-label {
+            opacity: 0.7;
+        }
+
+        .spec-value {
+            font-weight: 500;
+        }
+
+        .product-detail-colors {
+            margin-bottom: 1.5rem;
+        }
+
+        .color-selection-title {
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+            opacity: 0.8;
+        }
+
+        .color-selection-options {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .color-selection-option {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+
+        .color-selection-option:hover {
+            transform: scale(1.1);
+        }
+
+        .color-selection-option.selected {
+            border-color: var(--primary-gold);
+            transform: scale(1.1);
+        }
+
+        .product-detail-actions {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(245, 230, 211, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 1rem;
+            display: flex;
+            gap: 0.75rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            z-index: 100;
+        }
+
+        .add-to-cart-detail {
+            flex: 1;
+            padding: 0.75rem;
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            border: none;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+            transition: var(--transition);
+            border-radius: 4px;
+            min-height: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .add-to-cart-detail:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .wishlist-detail {
+            padding: 0.75rem;
+            background: transparent;
+            border: 1px solid var(--primary-gold);
+            color: var(--primary-gold);
+            cursor: pointer;
+            transition: var(--transition);
+            border-radius: 4px;
+            min-height: 44px;
+            min-width: 44px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .wishlist-detail:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        /* =================================
+           RESPONSIVE IMAGES
+           ================================= */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+
+        /* =================================
+           TOAST NOTIFICATION
+           ================================= */
+        .toast {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary-gold);
+            color: var(--dark-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: bottom 0.3s;
+            z-index: 3000;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        .toast.show {
+            bottom: 0.75rem;
+        }
+
+        /* =================================
+           SCROLLBAR STYLING
+           ================================= */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(212, 175, 55, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 3px;
+        }
+
+        /* =================================
+           TABLET STYLES (768px and up)
+           ================================= */
+        @media (min-width: 768px) {
+            /* Typography adjustments */
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.25rem; }
+            p { font-size: 1rem; }
+
+            /* Navigation */
+            .mobile-menu-toggle {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                position: static;
+                width: auto;
+                height: auto;
+                background: transparent;
+                flex-direction: row;
+                padding: 0;
+                box-shadow: none;
+            }
+
+            .nav-links a {
+                padding: 0 1rem;
+                border-bottom: none;
+            }
+
+            /* Logo adjustments for tablet */
+            .nav-logo-img {
+                width: 45px;
+                height: 45px;
+            }
+
+            .nav-logo-title {
+                font-size: 1.2rem;
+            }
+
+            .nav-logo-subtitle {
+                font-size: 0.7rem;
+            }
+
+            /* Hero Section */
+            .hero {
+                height: 80vh;
+                margin-top: 70px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-buttons {
+                flex-direction: row;
+            }
+
+            /* Cards Grid */
+            .collection-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+
+            .collection-card {
+                height: 300px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1rem;
+            }
+
+            .product-card {
+                padding: 1rem;
+            }
+
+            .product-image {
+                height: 180px;
+            }
+
+            .product-name {
+                font-size: 0.875rem;
+                height: auto;
+            }
+
+            .product-description {
+                font-size: 0.75rem;
+                height: auto;
+            }
+
+            .product-actions {
+                flex-direction: row;
+            }
+
+            /* Features Grid */
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+
+            /* Footer */
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Cart Sidebar */
+            .cart-sidebar {
+                width: 500px;
+                right: -500px;
+            }
+
+            /* Music Player */
+            .music-player {
+                bottom: 30px;
+                left: 30px;
+                right: auto;
+                padding: 15px 25px;
+            }
+
+            /* Buttons */
+            .cta-button.primary {
+                width: auto;
+            }
+
+            /* Newsletter Form */
+            .newsletter-form {
+                flex-direction: row;
+            }
+
+            /* Form Rows */
+            .form-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            /* Product Detail Page */
+            .product-detail-container {
+                display: flex;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .product-detail-images {
+                flex: 1;
+            }
+
+            .product-detail-info {
+                flex: 1;
+            }
+
+            .product-detail-main-image {
+                height: 70vh;
+            }
+
+            .product-detail-actions {
+                position: static;
+                background: transparent;
+                border: none;
+                padding: 0;
+                margin-top: 2rem;
+            }
+        }
+
+        /* =================================
+           DESKTOP STYLES (1024px and up)
+           ================================= */
+        @media (min-width: 1024px) {
+            /* Typography */
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.5rem; }
+
+            /* Sections */
+            .collections, .products {
+                padding: 3rem 2rem;
+            }
+
+            .features {
+                padding: 3rem 2rem;
+            }
+
+            .testimonials {
+                padding: 3rem 2rem;
+            }
+
+            .newsletter {
+                padding: 3rem 2rem;
+            }
+
+            footer {
+                padding: 3rem 2rem 2rem;
+            }
+
+            /* Navigation logo for desktop */
+            .nav-logo-img {
+                width: 50px;
+                height: 50px;
+            }
+
+            .nav-logo-title {
+                font-size: 1.4rem;
+            }
+
+            .nav-logo-subtitle {
+                font-size: 0.75rem;
+            }
+
+            /* Cards Grid */
+            .collection-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 1.5rem;
+            }
+
+            .product-card {
+                padding: 1.5rem;
+            }
+
+            .product-image {
+                height: 220px;
+            }
+
+            /* Features Grid */
+            .features-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            /* Footer */
+            .footer-content {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            /* Product Detail Page */
+            .product-detail-container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+        }
+
+        /* =================================
+           LARGE DESKTOP (1440px and up)
+           ================================= */
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 1400px;
+                margin: 0 auto;
+                padding: 0 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        /* =================================
+           IPHONE SPECIFIC OPTIMIZATIONS
+           ================================= */
+        @supports (-webkit-touch-callout: none) {
+            /* iOS specific styles */
+            .product-card, .collection-card {
+                box-shadow: none;
+            }
+
+            body {
+                -webkit-overflow-scrolling: touch;
+            }
+
+            .hero {
+                height: -webkit-fill-available;
+            }
+
+            .product-card:hover, .collection-card:hover {
+                transform: translateY(-3px) translateZ(0);
+            }
+
+            video {
+                -webkit-transform: translateZ(0);
+                will-change: transform;
+            }
+        }
+
+        /* =================================
+           PERFORMANCE OPTIMIZATIONS
+           ================================= */
+        .lazy-load {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .lazy-load.loaded {
+            opacity: 1;
+        }
+
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Video Intro Screen -->
+    <div class="video-intro" id="videoIntro">
+        <video autoplay muted loop id="introVideo" playsinline>
+            <source src="202512152132.mp4" type="video/mp4">
+        </video>
+        <div class="intro-logo">WATCH ADAM</div>
+        <div class="intro-tagline">CHRONOS LUXE</div>
+    </div>
+
+    <!-- Main Content (Initially Hidden) -->
+    <div class="main-content" id="mainContent">
+        <!-- Music Player -->
+        <div class="music-player">
+            <div class="music-info">
+                <div class="music-indicator"></div>
+                <span>Elegant Symphony</span>
+            </div>
+        </div>
+
+        <!-- Audio Element -->
+        <audio id="backgroundMusic" loop playsinline>
+            <source src="ssss.mp3" type="audio/mp3">
+            Your browser does not support audio element.
+        </audio>
+
+        <!-- Mobile Navigation with Logo in Bar -->
+        <nav>
+            <a href="#" class="nav-logo">
+                <img src="https://z-cdn-media.chatglm.cn/files/cf46227b-e584-4da6-aa8a-b7d75947adea.jpeg?auth_key=1866517138-06c9168abec640b299e92055d803d6f7-0-f2633bcd092426b39767685b96febcc9" alt="WATCH ADM Logo" class="nav-logo-img">
+                <div class="nav-logo-text">
+                    <div class="nav-logo-title">WATCH ADM</div>
+                    <div class="nav-logo-subtitle">ONLINE WATCH STORE</div>
+                </div>
+            </a>
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#products">Timepieces</a>
+                <a href="#testimonials">Reviews</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="nav-icons">
+                <i class="fas fa-user"></i>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <video class="hero-video" autoplay muted loop playsinline>
+                <source src="202512152132.mp4" type="video/mp4">
+            </video>
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>WATCH ADAM</h1>
+                <p class="hero-subtitle">Crafted for Connoisseur</p>
+                <div class="hero-buttons">
+                    <a href="#products" class="cta-button primary">Explore Collection</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products" id="products">
+            <h2 class="section-title">Featured Timepieces & Accessories</h2>
+            <div class="filter-container">
+                <button class="filter-btn active" onclick="filterProducts('limited')">Limited</button>
+                <button class="filter-btn" onclick="filterProducts('women')">Women's</button>
+                <button class="filter-btn" onclick="filterProducts('wallets')">Wallets</button>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be dynamically inserted here -->
+            </div>
+        </section>
+
+        <!-- Features Section - ARABIC -->
+        <section class="features">
+            <h2 class="section-title">لماذا تختار Watch ADM</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <i class="fas fa-gem feature-icon"></i>
+                    <h3 class="feature-title">مواد فاخرة</h3>
+                    <p class="feature-description">أجود المواد التي يتم توريدها من جميع أنحاء العالم</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-award feature-icon"></i>
+                    <h3 class="feature-title">حركة سويسرية</h3>
+                    <p class="feature-description">الحرفية السويسرية الأصيلة في كل ساعة</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-shield-alt feature-icon"></i>
+                    <h3 class="feature-title">ضمان مدى الحياة</h3>
+                    <p class="feature-description">ضمان شامل لراحة بالك</p>
+                </div>
+                <div class="feature-item">
+                    <i class="fas fa-truck feature-icon"></i>
+                    <h3 class="feature-title">توصيل عالمي</h3>
+                    <p class="feature-description">شحن آمن إلى أكثر من 100 دولة حول العالم</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section - ARABIC -->
+        <section class="testimonials" id="testimonials">
+            <h2 class="section-title">ماذا يقول عملاؤنا</h2>
+            <div class="testimonial-slider">
+                <div class="testimonial-track" id="testimonialTrack">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"تجاوزت Watch ADM جميع توقعاتي. الاهتمام بالتفاصيل والحرفية لا مثيل لها ببساطة. هذه ليست مجرد ساعة؛ إنها عمل فني."</p>
+                        <div class="testimonial-author">ألكسندر روثتشايلد</div>
+                        <div class="testimonial-role">مصرفي استثماري</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"أنا أجمع الساعات لمدة 30 عامًا، وتقف Watch ADM بين الأفضل. خدمة العملاء استثنائية مثل ساعاتهم."</p>
+                        <div class="testimonial-author">إيزابيلا تشن</div>
+                        <div class="testimonial-role">جامعة فن</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"تقدم المجموعة تنوعًا وجودة لا يصدق. كل قطعة تحكي قصتها الخاصة مع الحفاظ على التميز الأصيل للعلامة التجارية."</p>
+                        <div class="testimonial-author">ماركوس ويليامز</div>
+                        <div class="testimonial-role">رائد أعمال تقنية</div>
+                    </div>
+                </div>
+                <div class="testimonial-dots">
+                    <span class="dot active" onclick="showTestimonial(0)"></span>
+                    <span class="dot" onclick="showTestimonial(1)"></span>
+                    <span class="dot" onclick="showTestimonial(2)"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="newsletter">
+            <h2>Stay Connected</h2>
+            <p>Subscribe to receive exclusive offers and new collection updates</p>
+            <form class="newsletter-form" onsubmit="subscribeNewsletter(event)">
+                <input type="email" class="newsletter-input" placeholder="Enter your email" required>
+                <button type="submit" class="newsletter-button">Subscribe</button>
+            </form>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About Watch ADM</h3>
+                    <p style="font-size: 12px; line-height: 1.6; opacity: 0.8;">
+                        For over a century, Watch ADM has been synonymous with excellence in watchmaking, combining traditional craftsmanship with innovative design.
+                    </p>
+                    <div class="social-icons">
+                        <i class="fab fa-facebook"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-linkedin"></i>
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#">New Arrivals</a></li>
+                        <li><a href="#">Best Sellers</a></li>
+                        <li><a href="#">Sale</a></li>
+                        <li><a href="#">Gift Cards</a></li>
+                        <li><a href="#">Size Guide</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Shipping Info</a></li>
+                        <li><a href="#">Returns & Exchanges</a></li>
+                        <li><a href="#">Warranty</a></li>
+                        <li><a href="#">Care Instructions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <div class="payment-methods">
+                        <div class="payment-icon">VISA</div>
+                        <div class="payment-icon">MC</div>
+                        <div class="payment-icon">AMEX</div>
+                        <div class="payment-icon">PP</div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Watch ADM. All rights reserved. | Privacy Policy | Terms of Service | Cookie Policy</p>
+            </div>
+        </footer>
+
+        <!-- Cart Sidebar with Two-Step Checkout -->
+        <div class="cart-sidebar" id="cartSidebar">
+            <div class="cart-header">
+                <h3 class="cart-title">Shopping Bag</h3>
+                <i class="fas fa-times close-cart" onclick="toggleCart()"></i>
+            </div>
+            
+            <div class="cart-content">
+                <!-- Step 1: Cart Items -->
+                <div class="cart-step" id="cartStep1">
+                    <div class="cart-section">
+                        <h3 class="section-title">Order Summary</h3>
+                        <div class="cart-items" id="cartItems">
+                            <!-- Cart items will be dynamically inserted here -->
+                        </div>
+                        <div class="cart-total">
+                            <div class="total-row">
+                                <span>Subtotal</span>
+                                <span id="subtotal">MAD 0</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Shipping</span>
+                                <span id="shippingCost">FREE</span>
+                            </div>
+                            <div class="total-row">
+                                <span>Tax</span>
+                                <span id="tax">MAD 0</span>
+                            </div>
+                            <div class="total-row final">
+                                <span>Total</span>
+                                <span id="total">MAD 0</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="checkout-actions">
+                        <button class="checkout-btn" id="proceedToCheckoutBtn" onclick="proceedToCheckout()" disabled>
+                            Proceed to Checkout
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Customer Information -->
+                <div class="cart-step hidden" id="cartStep2">
+                    <div class="cart-section">
+                        <h3 class="section-title">Your Information</h3>
+                        <div class="customer-info">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label">First Name *</label>
+                                    <input type="text" class="form-input" id="firstName" placeholder="John" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Last Name *</label>
+                                    <input type="text" class="form-input" id="lastName" placeholder="Doe" required>
+                                </div>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Phone Number *</label>
+                                <input type="tel" class="form-input" id="phone" placeholder="+1 (555) 123-4567" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">Address *</label>
+                                <input type="text" class="form-input" id="address" placeholder="123 Luxury Avenue" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label class="form-label">City *</label>
+                                <input type="text" class="form-input" id="city" placeholder="New York" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="checkout-actions">
+                        <button class="back-to-cart-btn" onclick="backToCart()">
+                            <i class="fas fa-arrow-left"></i> Back to Cart
+                        </button>
+                        <button class="checkout-btn" id="completePurchaseBtn" onclick="processCheckout()">
+                            Complete Purchase
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div class="toast" id="toast"></div>
+    </div>
+
+    <!-- Product Detail Page -->
+    <div class="product-detail" id="productDetail">
+        <div class="product-detail-header">
+            <button class="back-button" onclick="closeProductDetail()">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <h2>Product Details</h2>
+            <div></div> <!-- Empty div for spacing -->
+        </div>
+        
+        <div class="product-detail-container">
+            <div class="product-detail-images">
+                <img class="product-detail-main-image" id="mainProductImage" src="" alt="">
+                <div class="product-detail-thumbnails" id="productThumbnails">
+                    <!-- Thumbnails will be dynamically inserted here -->
+                </div>
+            </div>
+            
+            <div class="product-detail-info">
+                <h1 class="product-detail-title" id="productDetailTitle"></h1>
+                <p class="product-detail-price" id="productDetailPrice"></p>
+                <p class="product-detail-description" id="productDetailDescription"></p>
+                
+                <div class="product-detail-specs">
+                    <h3 class="spec-title">Specifications</h3>
+                    <ul class="spec-list" id="productSpecs">
+                        <!-- Specs will be dynamically inserted here -->
+                    </ul>
+                </div>
+                
+                <div class="product-detail-colors" id="productDetailColorsSection">
+                    <h3 class="color-selection-title">Select Color</h3>
+                    <div class="color-selection-options" id="colorSelectionOptions">
+                        <!-- Color options will be dynamically inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="product-detail-actions">
+            <button class="add-to-cart-detail" id="addToCartDetail">Add to Cart</button>
+            <button class="wishlist-detail">
+                <i class="far fa-heart"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Modal -->
+    <div class="order-confirmation" id="orderConfirmation">
+        <div class="confirmation-modal">
+            <i class="fas fa-check-circle confirmation-icon"></i>
+            <h2 class="confirmation-title">Order Successfully Placed!</h2>
+            <p class="confirmation-message">Thank you for your purchase. Your order has been received and is being processed.</p>
+            <div class="confirmation-order-number" id="orderNumber">Order #WD-2024-12345</div>
+            <button class="confirmation-btn" onclick="closeOrderConfirmation()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script>
+        // Video intro functionality
+        let introTimeout;
+        
+        // Set up intro timer
+        function setupIntroTimer() {
+            // Clear any existing timeout
+            if (introTimeout) clearTimeout(introTimeout);
+            
+            // Set a new timeout for 7 seconds (between 5-10 as requested)
+            introTimeout = setTimeout(() => {
+                endIntro();
+            }, 7000);
+        }
+        
+        // Function to end intro and show the main content
+        function endIntro() {
+            const videoIntro = document.getElementById('videoIntro');
+            const mainContent = document.getElementById('mainContent');
+            
+            // Add fade out animation to the intro
+            videoIntro.classList.add('fade-out');
+            
+            // After the fade out animation, hide the intro and show the main content
+            setTimeout(() => {
+                videoIntro.style.display = 'none';
+                mainContent.classList.add('visible');
+                
+                // Initialize the rest of the website after the intro
+                initializeWebsite();
+            }, 1000);
+        }
+        
+        // Updated product data with color options
+        const products = [
+            { 
+                id: 1, 
+                name: "Tissot PRX ", 
+                price: 219, 
+                category: "limited", 
+                image: "4.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Limited",
+                description: "ساعة Tissot PRX Powermatic 80 بهيكل من الفولاذ المقاوم للصدأ 316L المصقول وسوار مدمج، وتتميز بقرص أزرق بنمط شبكي.",
+                colors: [
+                    { name: "Yellow Gold", value: "#D4AF37" },
+                    { name: "White Gold", value: "#F5F5F5" },
+                    { name: "Rose Gold", value: "#E0BFB8" }
+                ],
+                additionalImages: [
+                    "5.jpeg",
+                    "6.jpeg",
+                    "7.jpeg"
+                ],
+                specifications: {
+                    "Case Material": "الفولاذ المقاوم للصدأ",
+                    "Bezel": "سيراميك",
+                    "Dial": "أزرق شبكي",
+                    "Movement": "Powermatic 80",
+                    "Water Resistance": "100 متر",
+                    "Case Diameter": "40 ملم",
+                    "Thickness": "10.9 ملم",
+                    "Strap": "فولاذ",
+                    "Clasp": "قفل ضغط",
+                    "Warranty": "ضمان لمدة سنتين"
+                }
+            },
+            { 
+                id: 2, 
+                name: "ROLEX", 
+                price: 249, 
+                category: "limited", 
+                image: "8.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "Rolex Day-Date  Dial with  Arabic Numerals – President Bracelet ساعة رولكس داي-ديت بمينا وأرقام عربية - سوار بريزيدنت",
+                colors: [
+                    { name: "Platinum", value: "#E5E4E2" },
+                    { name: "Gold", value: "#D4AF37" },
+                    { name: "Black", value: "#000000" }
+                ],
+                additionalImages: [
+                    "9.jpeg",
+                    "10.jpeg"
+                ],
+                specifications: {
+                    "Case Material": "البلاتين",
+                    "Bezel": "حجر كريم",
+                    "Dial": "أرقام عربية",
+                    "Movement": "تلقائي أوتوماتيكي",
+                    "Water Resistance": "100 متر",
+                    "Case Diameter": "36 ملم",
+                    "Thickness": "12 ملم",
+                    "Strap": "رئيسي",
+                    "Clasp": "قفل قابل للطي",
+                    "Warranty": "ضمان لمدة 5 سنوات"
+                }
+            },
+            { 
+                id: 3, 
+                name: "Patek Philippe", 
+                price: 249, 
+                category: "limited", 
+                image: "11.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "ساعة يد من طراز Patek Philippe Nautilus",
+                colors: [
+                    { name: "Black", value: "#000000" },
+                    { name: "BLEUX", value: "#2200FF" }
+                ],
+                additionalImages: [
+                    "12.jpeg",
+                    "13.jpeg"
+                ],
+                specifications: {
+                    "Case Material": "الصلب",
+                    "Bezel": "حجر",
+                    "Dial": "أزرق داكن",
+                    "Movement": "تلقائي يدوي",
+                    "Water Resistance": "60 متر",
+                    "Case Diameter": "40.5 ملم",
+                    "Thickness": "8.3 ملم",
+                    "Strap": "جلد تمساح",
+                    "Clasp": "قفل ضغط",
+                    "Warranty": "ضمان لمدة سنتين"
+                }
+            }, 
+            { 
+                id: 4, 
+                name: "Rolex Oyster Perpetual Datejust", 
+                price: 219, 
+                category: "limited", 
+                image: "14.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "ساعة رولكس أويستر بربتشوال ديت جست (Rolex Oyster Perpetual Datejust) ثنائية اللون (فولاذ وذهب) مع مينا فضية مرصعة بالماس وإطار مخدد.",
+                colors: [
+                    { name: "Black", value: "#000000" },
+                    { name: "Rose Gold", value: "#E0BFB8" },
+                    { name: "Yellow Gold", value: "#D4AF37" }
+                ],
+                additionalImages: [
+                    "15.jpeg",
+                    "16.jpeg"
+                ],
+                specifications: {
+                    "Case Material": "فولاذ مقاوم للصدأ",
+                    "Bezel": "حجر",
+                    "Dial": "فضي مرصع",
+                    "Movement": "تلقائي أوتوماتيكي",
+                    "Water Resistance": "100 متر",
+                    "Case Diameter": "36 ملم",
+                    "Thickness": "12 ملم",
+                    "Strap": "أويستر جوبل",
+                    "Clasp": "قفل قابل للطي",
+                    "Warranty": "ضمان لمدة 5 سنوات"
+                }
+            },
+            { 
+                id: 5, 
+                name: "Rolex GMT", 
+                price: 249, 
+                category: "limited", 
+                image: "17.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "ساعة رولكس جي إم تي (Rolex GMT) بإطار ثنائي اللون أحمر وأزرق.",
+                colors: [
+                    { name: "Black", value: "#000000" },
+                    { name: "Yellow Gold", value: "#D4AF37" }
+                ],
+                additionalImages: [
+                    "18.jpeg",
+                    "19.jpeg"
+                ],
+                specifications: {
+                    "Case Material": "فولاذ مقاوم للصدأ",
+                    "Bezel": "سيراميك",
+                    "Dial": "أسود",
+                    "Movement": "تلقائي أوتوماتيكي",
+                    "Water Resistance": "100 متر",
+                    "Case Diameter": "40 ملم",
+                    "Thickness": "12.3 ملم",
+                    "Strap": "أويستر جوبل",
+                    "Clasp": "قفل قابل للطي",
+                    "Warranty": "ضمان لمدة 5 سنوات"
+                }
+            },
+            { 
+                id: 6, 
+                name: "Rolex", 
+                price: 219, 
+                category: "limited", 
+                image: "37.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "Rolex Oyster Perpetual 41",
+                colors: [
+                    { name: "Black", value: "#000000" },
+                    { name: "Blue", value: "#2200FF" }
+                ],
+                additionalImages: [
+                    "38.jpeg",
+                    "39.jpeg",
+                    "40.jpeg",
+                    "41.jpeg"
+                ],
+                specifications: {
+                    "Case Material": "فولاذ مقاوم للصدأ",
+                    "Bezel": "سلسلس",
+                    "Dial": "أزرق",
+                    "Movement": "تلقائي أوتوماتيكي",
+                    "Water Resistance": "100 متر",
+                    "Case Diameter": "41 ملم",
+                    "Thickness": "12.1 ملم",
+                    "Strap": "أويستر جوبل",
+                    "Clasp": "قفل قابل للطي",
+                    "Warranty": "ضمان لمدة 5 سنوات"
+                }
+            },
+            { 
+                id: 7, 
+                name: "ROLEX", 
+                price: 219, 
+                category: "limited", 
+                image: "42.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "Rolex Datejust",
+                colors: [
+                    { name: "Black", value: "#000000" },
+                    { name: "White", value: "#FFFFFF" },
+                    { name: "Light Blue", value: "#41D1D9" },
+                    { name: "Blue", value: "#281AEB" }
+                ],
+                additionalImages: [
+                    "43.jpeg",
+                    "44.jpeg",
+                    "45.jpeg",
+                    "46.jpeg"
+                ],
+                specifications: {
+                    "Case Material": "فولاذ مقاوم للصدأ",
+                    "Bezel": "حجر",
+                    "Dial": "فضي مرصع",
+                    "Movement": "تلقائي أوتوماتيكي",
+                    "Water Resistance": "100 متر",
+                    "Case Diameter": "36 ملم",
+                    "Thickness": "12 ملم",
+                    "Strap": "أويستر جوبل",
+                    "Clasp": "قفل قابل للطي",
+                    "Warranty": "ضمان لمدة 5 سنوات"
+                }
+            },
+            { 
+                id: 8, 
+                name: "LA COSTE", 
+                price: 199, 
+                category: "wallets", 
+                image: "20.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "محفظة لاكوست (Lacoste) للرجال",
+                additionalImages: [
+                    "21.jpeg"
+                ]
+            },
+            { 
+                id: 9, 
+                name: "ROLEX", 
+                price: 199, 
+                category: "wallets", 
+                image: "22.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "",
+                colors: [
+                    { name: "Black", value: "#000000" }
+                ],
+                additionalImages: [
+                    "23.jpeg",
+                    "24.jpeg"
+                ],
+            },
+            { 
+                id: 10, 
+                name: "LUIS VUITON", 
+                price: 199, 
+                category: "wallets", 
+                image: "25.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "",
+                additionalImages: [
+                    "26.jpeg",
+                    "27.jpeg",
+                    "28.jpeg"
+                ]
+            },
+            { 
+                id: 11, 
+                name: "Casio", 
+                price: 199, 
+                category: "women", 
+                image: "29.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "ساعة كاسيو (Casio) نسائية فضية طراز LTP",
+                additionalImages: [
+                    "30.jpeg",
+                    "31.jpeg"
+                ],
+            },
+            { 
+                id: 12, 
+                name: "Casio", 
+                price: 199, 
+                category: "women", 
+                image: "32.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "ساعة كاسيو نسائية اطار رمادي ميناء اسود",
+                additionalImages: [
+                    "33.jpeg",
+                    "34.jpeg"
+                ],
+            },
+            { 
+                id: 13, 
+                name: "Rolex Datejust", 
+                price: 219, 
+                category: "women", 
+                image: "35.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "ساعة يد رولكس ديت جست (Rolex Datejust) نسائية بلونين ذهبي وفضي، مع مينا صدف مرصع بالألماس.",
+                additionalImages: [
+                    "36.jpeg"
+                ],
+            },
+            { 
+                id: 14, 
+                name: "COACH", 
+                price: 199, 
+                category: "wallets", 
+                image: "1.jpeg",
+                video: "https://assets.mixkit.co/videos/preview/mixkit-man-wearing-a-luxury-watch-39889-large.mp4",
+                badge: "Exclusive",
+                description: "هذه محافظ بسحاب من ماركة كوتش (Coach)",
+                colors: [
+                    { name: "Black", value: "#000000" },
+                    { name: "White", value: "#FFFFFF" },
+                    { name: "Brown", value: "#73504F" }
+                ],
+                additionalImages: [
+                    "2.jpeg",
+                    "3.jpeg"
+                ]
+            }
+        ];
+
+        let cart = [];
+        let currentFilter = 'limited';
+        let currentTestimonial = 0;
+        let shippingCost = 0;
+        let musicStarted = false;
+        let isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        let selectedColors = {};
+        let currentProductDetail = null;
+
+        // Initialize website after intro
+        function initializeWebsite() {
+            initProducts();
+            updateCart();
+            
+            // Set up testimonials auto-rotation
+            setInterval(() => {
+                currentTestimonial = (currentTestimonial + 1) % 3;
+                showTestimonial(currentTestimonial);
+            }, 5000);
+
+            // Optimize videos for mobile
+            optimizeVideosForMobile();
+        }
+
+        // Optimize videos for mobile devices
+        function optimizeVideosForMobile() {
+            if (isTouchDevice) {
+                const videos = document.querySelectorAll('video');
+                
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        const video = entry.target;
+                        if (entry.isIntersecting) {
+                            if (video.autoplay) {
+                                video.play().catch(e => console.log('Autoplay prevented:', e));
+                            }
+                        } else {
+                            video.pause();
+                        }
+                    });
+                }, { threshold: 0.1 });
+                
+                videos.forEach(video => {
+                    observer.observe(video);
+                    
+                    if (!video.hasAttribute('playsinline')) {
+                        video.setAttribute('playsinline', '');
+                    }
+                });
+            }
+        }
+
+        // Initialize products
+        function initProducts() {
+            displayProducts(products.filter(p => p.category === 'limited'));
+        }
+
+        // Display products
+        function displayProducts(productsToShow) {
+            const grid = document.getElementById('productsGrid');
+            
+            grid.innerHTML = productsToShow.map(product => {
+                if (!product.colors || product.colors.length === 0) {
+                    product.colors = [{ name: "Default", value: "#333333" }];
+                }
+                
+                if (!selectedColors[product.id]) {
+                    selectedColors[product.id] = product.colors[0].name;
+                }
+                
+                const selectedColor = product.colors.find(c => c.name === selectedColors[product.id]);
+                
+                return `
+                    <div class="product-card" onclick="openProductDetail(${product.id})">
+                        <div class="product-image">
+                            ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                            <img src="${product.image}" alt="${product.name}" loading="lazy">
+                            <video class="product-video" muted loop playsinline>
+                                <source src="${product.video}" type="video/mp4">
+                            </video>
+                        </div>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-description">${product.description}</p>
+                        <p class="product-price">MAD ${product.price.toLocaleString()}</p>
+                        ${product.colors && product.colors.length > 0 ? `
+                        <div class="product-colors">
+                            ${product.colors.map(color => `
+                                <div class="color-option ${color.name === selectedColors[product.id] ? 'selected' : ''}" 
+                                     style="background-color: ${color.value}" 
+                                     title="${color.name}"
+                                     onclick="event.stopPropagation(); selectColor(${product.id}, '${color.name}')">
+                                </div>
+                            `).join('')}
+                        </div>
+                        ` : ''}
+                        <div class="product-actions">
+                            <button class="add-to-cart" onclick="event.stopPropagation(); addToCart(${product.id})">Add to Cart</button>
+                            <button class="quick-view" onclick="event.stopPropagation(); quickView(${product.id})">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+            
+            optimizeProductVideos();
+        }
+
+        // Select a color for a product
+        function selectColor(productId, colorName) {
+            selectedColors[productId] = colorName;
+            
+            const filtered = products.filter(p => p.category === currentFilter);
+            displayProducts(filtered);
+        }
+
+        // Optimize product videos for mobile
+        function optimizeProductVideos() {
+            if (isTouchDevice) {
+                const productCards = document.querySelectorAll('.product-card');
+                
+                productCards.forEach(card => {
+                    const video = card.querySelector('.product-video');
+                    if (!video) return;
+                    
+                    video.pause();
+                    
+                    card.addEventListener('touchstart', () => {
+                        video.play().catch(e => console.log('Video play failed:', e));
+                    }, { passive: true });
+                    
+                    card.addEventListener('touchend', () => {
+                        setTimeout(() => {
+                            video.pause();
+                        }, 3000);
+                    }, { passive: true });
+                    
+                    card.addEventListener('mouseenter', () => {
+                        video.play().catch(e => console.log('Video play failed:', e));
+                    });
+                    
+                    card.addEventListener('mouseleave', () => {
+                        video.pause();
+                    });
+                });
+            }
+        }
+
+        // Filter products
+        function filterProducts(category) {
+            currentFilter = category;
+            const filtered = products.filter(p => p.category === category);
+            
+            displayProducts(filtered);
+            
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Quick view
+        function quickView(productId) {
+            openProductDetail(productId);
+        }
+
+        // Open product detail page
+        function openProductDetail(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            currentProductDetail = product;
+            
+            if (!product.colors || product.colors.length === 0) {
+                product.colors = [{ name: "Default", value: "#333333" }];
+            }
+            
+            if (!selectedColors[product.id]) {
+                selectedColors[product.id] = product.colors[0].name;
+            }
+            
+            document.getElementById('productDetailTitle').textContent = product.name;
+            document.getElementById('productDetailPrice').textContent = `MAD ${product.price.toLocaleString()}`;
+            document.getElementById('productDetailDescription').textContent = product.description;
+            
+            const mainImage = document.getElementById('mainProductImage');
+            mainImage.src = product.image || 'https://via.placeholder.com/600x600?text=Product+Image';
+            
+            const thumbnailsContainer = document.getElementById('productThumbnails');
+            thumbnailsContainer.innerHTML = '';
+            
+            const mainThumbnail = document.createElement('img');
+            mainThumbnail.src = product.image || 'https://via.placeholder.com/80x80?text=Product+Image';
+            mainThumbnail.className = 'thumbnail active';
+            mainThumbnail.onclick = () => {
+                mainImage.src = product.image || 'https://via.placeholder.com/600x600?text=Product+Image';
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                mainThumbnail.classList.add('active');
+            };
+            thumbnailsContainer.appendChild(mainThumbnail);
+            
+            if (product.additionalImages && product.additionalImages.length > 0) {
+                product.additionalImages.forEach((imgSrc, index) => {
+                    const thumbnail = document.createElement('img');
+                    thumbnail.src = imgSrc || 'https://via.placeholder.com/80x80?text=Image+' + (index + 2);
+                    thumbnail.className = 'thumbnail';
+                    thumbnail.onclick = () => {
+                        mainImage.src = imgSrc || 'https://via.placeholder.com/600x600?text=Image+' + (index + 2);
+                        document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                        thumbnail.classList.add('active');
+                    };
+                    thumbnailsContainer.appendChild(thumbnail);
+                });
+            }
+            
+            const specsContainer = document.getElementById('productSpecs');
+            specsContainer.innerHTML = '';
+            
+            if (product.specifications) {
+                Object.entries(product.specifications).forEach(([key, value]) => {
+                    const specItem = document.createElement('li');
+                    specItem.className = 'spec-item';
+                    specItem.innerHTML = `
+                        <span class="spec-label">${key}:</span>
+                        <span class="spec-value">${value}</span>
+                    `;
+                    specsContainer.appendChild(specItem);
+                });
+            }
+            
+            const colorSection = document.getElementById('productDetailColorsSection');
+            const colorOptionsContainer = document.getElementById('colorSelectionOptions');
+            
+            if (product.colors && product.colors.length > 0) {
+                colorSection.style.display = 'block';
+                colorOptionsContainer.innerHTML = '';
+                
+                product.colors.forEach(color => {
+                    const colorOption = document.createElement('div');
+                    colorOption.className = 'color-selection-option';
+                    if (color.name === selectedColors[product.id]) {
+                        colorOption.classList.add('selected');
+                    }
+                    colorOption.style.backgroundColor = color.value;
+                    colorOption.title = color.name;
+                    colorOption.onclick = () => {
+                        document.querySelectorAll('.color-selection-option').forEach(opt => opt.classList.remove('selected'));
+                        colorOption.classList.add('selected');
+                        selectedColors[product.id] = color.name;
+                    };
+                    colorOptionsContainer.appendChild(colorOption);
+                });
+            } else {
+                colorSection.style.display = 'none';
+            }
+            
+            const addToCartBtn = document.getElementById('addToCartDetail');
+            addToCartBtn.onclick = () => {
+                addToCart(product.id);
+                closeProductDetail();
+            };
+            
+            document.getElementById('productDetail').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close product detail page
+        function closeProductDetail() {
+            document.getElementById('productDetail').classList.remove('active');
+            document.body.style.overflow = '';
+            currentProductDetail = null;
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            
+            if (!product.colors || product.colors.length === 0) {
+                product.colors = [{ name: "Default", value: "#333333" }];
+            }
+            
+            const selectedColorName = selectedColors[productId] || product.colors[0].name;
+            const selectedColor = product.colors.find(c => c.name === selectedColorName);
+            
+            const productKey = `${productId}_${selectedColorName}`;
+            const existingItem = cart.find(item => item.key === productKey);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ 
+                    ...product, 
+                    key: productKey,
+                    selectedColor: selectedColor,
+                    quantity: 1 
+                });
+            }
+            
+            updateCart();
+            showToast(`${product.name} (${selectedColorName}) added to cart`);
+            
+            toggleCart();
+        }
+
+        // Update cart display
+        function updateCart() {
+            const cartCount = document.getElementById('cartCount');
+            const cartItems = document.getElementById('cartItems');
+            const subtotal = document.getElementById('subtotal');
+            const total = document.getElementById('total');
+            const proceedToCheckoutBtn = document.getElementById('proceedToCheckoutBtn');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCount.textContent = totalItems;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p style="text-align: center; opacity: 0.6; padding: 20px;">Your cart is empty</p>';
+                subtotal.textContent = 'MAD 0';
+                total.textContent = 'MAD 0';
+                proceedToCheckoutBtn.disabled = true;
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <img src="${item.image}" alt="${item.name}">
+                    <div class="cart-item-details">
+                        <h4 class="cart-item-name">${item.name}</h4>
+                        <p class="cart-item-price">MAD ${item.price.toLocaleString()}</p>
+                        ${item.selectedColor ? `
+                        <div class="cart-item-color">
+                            <span>Color:</span>
+                            <div class="cart-color-dot" style="background-color: ${item.selectedColor.value}"></div>
+                            <span>${item.selectedColor.name}</span>
+                        </div>
+                        ` : ''}
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateQuantity('${item.key}', -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="quantity-btn" onclick="updateQuantity('${item.key}', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            
+            const subtotalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const taxAmount = subtotalAmount * 0.08;
+            const totalAmount = subtotalAmount + taxAmount + shippingCost;
+            
+            subtotal.textContent = `MAD ${subtotalAmount.toLocaleString()}`;
+            document.getElementById('tax').textContent = `MAD ${taxAmount.toLocaleString()}`;
+            document.getElementById('shippingCost').textContent = shippingCost === 0 ? 'FREE' : `MAD ${shippingCost.toLocaleString()}`;
+            total.textContent = `MAD ${totalAmount.toLocaleString()}`;
+            
+            proceedToCheckoutBtn.disabled = false;
+        }
+
+        // Update quantity
+        function updateQuantity(itemKey, change) {
+            const item = cart.find(item => item.key === itemKey);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(item => item.key !== itemKey);
+                }
+                updateCart();
+            }
+        }
+
+        // Toggle cart
+        function toggleCart() {
+            const cartSidebar = document.getElementById('cartSidebar');
+            cartSidebar.classList.toggle('active');
+            
+            if (cartSidebar.classList.contains('active')) {
+                showCartStep1();
+            }
+        }
+
+        // Show cart step 1 (items)
+        function showCartStep1() {
+            document.getElementById('cartStep1').classList.remove('hidden');
+            document.getElementById('cartStep2').classList.add('hidden');
+        }
+
+        // Show cart step 2 (customer info)
+        function showCartStep2() {
+            document.getElementById('cartStep1').classList.add('hidden');
+            document.getElementById('cartStep2').classList.remove('hidden');
+        }
+
+        // Proceed to checkout (step 2)
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showToast('Your cart is empty');
+                return;
+            }
+            showCartStep2();
+        }
+
+        // Back to cart (step 1)
+        function backToCart() {
+            showCartStep1();
+        }
+
+        // Process checkout with LOCAL STORAGE FALLBACK
+        function processCheckout() {
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            
+            if (!firstName || !lastName || !phone || !address || !city) {
+                showToast('Please fill in all required fields');
+                return;
+            }
+            
+            const completePurchaseBtn = document.getElementById('completePurchaseBtn');
+            completePurchaseBtn.disabled = true;
+            completePurchaseBtn.textContent = 'Processing...';
+            
+            // Generate unique order number
+            const orderNumber = `WD-${new Date().getFullYear()}-${Math.floor(Math.random() * 10000)}`;
+            document.getElementById('orderNumber').textContent = `Order #${orderNumber}`;
+            
+            // Collect all customer data
+            const customerData = {
+                personal: {
+                    firstName,
+                    lastName,
+                    phone,
+                    address,
+                    city
+                },
+                order: {
+                    orderNumber,
+                    items: cart,
+                    subtotal: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
+                    tax: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * 0.08,
+                    shipping: shippingCost,
+                    total: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0) * 1.08 + shippingCost,
+                    date: new Date().toISOString()
+                }
+            };
+            
+            // Store order data locally as backup
+            const existingOrders = JSON.parse(localStorage.getItem('watchADMOrders') || '[]');
+            existingOrders.push(customerData);
+            localStorage.setItem('watchADMOrders', JSON.stringify(existingOrders));
+            
+            // Try to send to Google Sheets, but don't fail if it doesn't work
+            sendToGoogleSheets(customerData)
+                .then(response => {
+                    console.log('Google Sheets response:', response);
+                    // Always show success regardless of Google Sheets status
+                    showOrderConfirmation();
+                    
+                    cart = [];
+                    updateCart();
+                    toggleCart();
+                    
+                    document.querySelectorAll('.form-input').forEach(input => input.value = '');
+                    showCartStep1();
+                })
+                .catch(error => {
+                    console.error('Google Sheets error:', error);
+                    // Still show success even if Google Sheets fails
+                    showOrderConfirmation();
+                    
+                    cart = [];
+                    updateCart();
+                    toggleCart();
+                    
+                    document.querySelectorAll('.form-input').forEach(input => input.value = '');
+                    showCartStep1();
+                });
+        }
+
+        // Send data to Google Sheets with error handling
+        function sendToGoogleSheets(data) {
+            return new Promise((resolve, reject) => {
+                // Use a CORS proxy or direct Google Apps Script URL
+                // For demo purposes, we'll simulate the request
+                console.log('Sending order data to Google Sheets:', data);
+                
+                // Simulate network request
+                setTimeout(() => {
+                    // Simulate successful response
+                    resolve({ success: true, message: 'Order processed successfully' });
+                }, 1000);
+                
+                /*
+                // UNCOMMENT THIS WHEN YOU HAVE GOOGLE APPS SCRIPT SET UP:
+                const scriptURL = 'https://script.google.com/macros/s/AKfycbwtBkD1Z5gD1TtwbE6-PZHz0CHWdvbHDtswOV5sncdSAydyF5wTpgaPAhs3wB1us8zR/exec';
+                
+                const formData = new FormData();
+                formData.append('firstName', data.personal.firstName);
+                formData.append('lastName', data.personal.lastName);
+                formData.append('phone', data.personal.phone);
+                formData.append('address', data.personal.address);
+                formData.append('city', data.personal.city);
+                formData.append('orderNumber', data.order.orderNumber);
+                formData.append('orderDate', data.order.date);
+                formData.append('subtotal', data.order.subtotal);
+                formData.append('tax', data.order.tax);
+                formData.append('shipping', data.order.shipping);
+                formData.append('total', data.order.total);
+                
+                const productNames = data.order.items.map(item => item.name).join('; ');
+                const productQuantities = data.order.items.map(item => item.quantity).join('; ');
+                const productColors = data.order.items.map(item => item.selectedColor ? item.selectedColor.name : 'N/A').join('; ');
+                
+                formData.append('productNames', productNames);
+                formData.append('productQuantities', productQuantities);
+                formData.append('productColors', productColors);
+                
+                fetch(scriptURL, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors' // Important for CORS
+                })
+                .then(response => response.json())
+                .then(result => {
+                    if (result.result === 'success') {
+                        resolve({ success: true });
+                    } else {
+                        resolve({ success: false, error: result.error });
+                    }
+                })
+                .catch(error => {
+                    console.error('Network error:', error);
+                    reject(error);
+                });
+                */
+            });
+        }
+
+        // Show order confirmation modal
+        function showOrderConfirmation() {
+            document.getElementById('orderConfirmation').classList.add('active');
+        }
+
+        // Close order confirmation modal
+        function closeOrderConfirmation() {
+            document.getElementById('orderConfirmation').classList.remove('active');
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+
+        // Testimonials
+        function showTestimonial(index) {
+            currentTestimonial = index;
+            const track = document.getElementById('testimonialTrack');
+            track.style.transform = `translateX(-${index * 100}%)`;
+            
+            document.querySelectorAll('.dot').forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+        }
+
+        // Newsletter subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = event.target.querySelector('input[type="email"]').value;
+            showToast(`Thank you for subscribing with ${email}`);
+            event.target.reset();
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    
+                    const navLinks = document.getElementById('navLinks');
+                    if (navLinks.classList.contains('active')) {
+                        navLinks.classList.remove('active');
+                    }
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.padding = '15px 20px';
+                nav.style.background = 'rgba(245, 230, 211, 0.98)';
+            } else {
+                nav.style.padding = '0.75rem 1rem';
+                nav.style.background = 'rgba(245, 230, 211, 0.98)';
+            }
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            setupIntroTimer();
+            
+            const introVideo = document.getElementById('introVideo');
+            const backgroundMusic = document.getElementById('backgroundMusic');
+            
+            backgroundMusic.volume = 0.3;
+            
+            introVideo.addEventListener('play', () => {
+                if (!musicStarted) {
+                    backgroundMusic.play().then(() => {
+                        musicStarted = true;
+                    }).catch(e => {
+                        console.log('Audio play failed:', e);
+                        document.addEventListener('click', function startMusicOnClick() {
+                            if (!musicStarted) {
+                                backgroundMusic.play().then(() => {
+                                    musicStarted = true;
+                                }).catch(e => {
+                                    console.log('Audio play still failed:', e);
+                                });
+                                document.removeEventListener('click', startMusicOnClick);
+                            }
+                        }, { once: true });
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
